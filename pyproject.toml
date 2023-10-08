@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "pybrd"
+version = "0.1.0"
+description = ""
+authors = ["Marco Rougeth <rougeth@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+discord-py = "^2.3.2"
+httpx = "^0.25.0"
+loguru = "^0.7.2"
+python-decouple = "^3.8"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.9.1"
+ipython = "^8.16.1"
+ipdb = "^0.13.13"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
