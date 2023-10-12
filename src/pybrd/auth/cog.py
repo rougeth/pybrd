@@ -5,7 +5,7 @@ from discord.ext import commands, tasks
 from discord import utils
 from loguru import logger
 
-from pybrd import Templates
+from pybrd import Templates, config
 
 from .provider import BaseAuthenticationProvider
 
@@ -46,7 +46,7 @@ class AuthenticationCog(commands.Cog):
         await self.auth.refresh()
 
     @commands.command("auth:refresh")
-    @commands.has_permissions(manage_guild=True)
+    @commands.has_role(config.PYBR_ORG_ROLE)
     async def refresh(
         self,
         context: commands.Context,
@@ -55,7 +55,7 @@ class AuthenticationCog(commands.Cog):
         await self.auth.refresh()
 
     @commands.command("auth:info")
-    @commands.has_permissions(manage_guild=True)
+    @commands.has_role(config.PYBR_ORG_ROLE)
     async def info(
         self,
         context: commands.Context,
@@ -68,7 +68,7 @@ class AuthenticationCog(commands.Cog):
         await context.reply(f"Auth Info:\n{message}")
 
     @commands.command("auth:check")
-    @commands.has_permissions(manage_guild=True)
+    @commands.has_role(config.PYBR_ORG_ROLE)
     async def check(
         self,
         context: commands.Context,
