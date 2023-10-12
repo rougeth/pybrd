@@ -59,10 +59,15 @@ class AttendeesIndex:
         self._index[attendee.email.lower()] = attendee
         self.updated_at = datetime.utcnow()
         self._store_cache()
-        logger.info(
+        logger.debug(
             f"New attendee added to the index. attendee={attendee!r}, updated_at={self.updated_at!r}"
         )
 
     def search(self, query: str) -> Optional[Attendee]:
         query = query.strip().lower()
         return self._index.get(query)
+
+    def clear(self):
+        self._index = {}
+        self._index_path.unlink(missing_ok=True)
+        self.updated_at = None

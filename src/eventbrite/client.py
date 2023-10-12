@@ -50,7 +50,7 @@ class Eventbrite:
         url = f"{self.BASE_URL}/events/{self.event_id}/attendees/"
 
         response = await self._request(url, params)
-        logger.info(
+        logger.debug(
             "List attendees request. attendees={attendees}, page_number={page_number}, page_count={page_count}, has_more_items={has_more_items}".format(
                 attendees=len(response["attendees"]),
                 page_number=response["pagination"]["page_number"],
@@ -90,7 +90,7 @@ class Eventbrite:
     ) -> list[Attendee]:
         tasks = self._prepare_list_attendees_all_pages(next_page, last_page)
 
-        logger.info(
+        logger.debug(
             f"Tasks created for remaining pages of attendees list. tasks={len(tasks)}"
         )
         results = await asyncio.gather(*tasks)

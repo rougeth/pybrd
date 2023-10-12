@@ -33,3 +33,6 @@ class EventbriteAuthenticationProvider(BaseAuthenticationProvider):
             "attendees": len(self.index._index),
             "updated_at": self.index.updated_at,
         }
+
+    async def clear_cache(self):
+        self.index.clear()

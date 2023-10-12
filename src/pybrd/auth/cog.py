@@ -53,6 +53,17 @@ class AuthenticationCog(commands.Cog):
         *args,
     ):
         await self.auth.refresh()
+        await context.message.add_reaction("✅")
+
+    @commands.command("auth:clear_cache")
+    @commands.has_role(config.PYBR_ORG_ROLE)
+    async def clear_cache(
+        self,
+        context: commands.Context,
+        *args,
+    ):
+        await self.auth.clear_cache()
+        await context.message.add_reaction("✅")
 
     @commands.command("auth:info")
     @commands.has_role(config.PYBR_ORG_ROLE)
