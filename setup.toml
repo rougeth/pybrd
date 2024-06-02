@@ -1,0 +1,41 @@
+[[role]]
+name = "pybrd"
+
+[[role]]
+name = "Admin"
+
+[[role]]
+name = "Moderação"
+
+[[role]]
+name = "Boteco"
+
+[[role]]
+name = "Server Booster"
+
+[[channel]]
+name = "boas-vindas"
+
+[[channel]]
+name = "boas-vindas"
+
+[[channel]]
+name = "regras"
+
+[[channel]]
+name = "codigo-de-conduta"
+
+[[category]]
+name = "Geral"
+
+    [[category.channel]]
+    name = "geral"
+
+[[category]]
+name = "Admin"
+
+    [[category.channel]]
+    name = "geral"
+
+    [[category.channel]]
+    name = "log"

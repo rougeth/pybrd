@@ -6,6 +6,10 @@ from loguru import logger
 
 
 class EventbriteAuthenticationProvider(BaseAuthenticationProvider):
+    """
+    Authentication provider for Eventbrite events.
+    """
+
     def __init__(
         self, event_id: str, token: str, index_path: Path, cache_enabled: bool
     ):

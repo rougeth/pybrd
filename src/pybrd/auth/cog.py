@@ -5,7 +5,8 @@ from discord.ext import commands, tasks
 from discord import utils
 from loguru import logger
 
-from pybrd import Templates, config
+from pybrd import config
+from pybrd.templates import Templates
 
 from .provider import BaseAuthenticationProvider
 
@@ -21,6 +22,22 @@ def find_email(message: str):
 
 
 class AuthenticationCog(commands.Cog):
+    """
+    Authentication Cog.
+
+    Tasks:
+    - refresh - Execute provider refresh task.
+
+    Commands:
+    - auth:refresh - Manually execute provider refresh task.
+    - auth:clear_cache - Clean up authentication cache.
+    - auth:info - Return authentication stats
+    - auth:check - Checks if an email is authorized
+
+    Events:
+    - new messages - Listen to private messages and authenticate users.
+    """
+
     def __init__(
         self,
         bot: commands.Bot,
@@ -28,14 +45,14 @@ class AuthenticationCog(commands.Cog):
         welcome_channel_id: str,
         auth_provider: BaseAuthenticationProvider,
         attendee_role: discord.Role,
-        templates_path: str,
+        templates: Templates,
     ):
         self.bot = bot
         self.guild = guild
         self.welcome_channel_id = welcome_channel_id
         self.attendee_role = attendee_role
         self.auth = auth_provider
-        self.templates = Templates(templates_path)
+        self.templates = templates
         # Auth refresh task
         task = tasks.loop(seconds=self.auth.REFRESH_INTERVAL)(
             self.task_refresh_auth_provider
@@ -112,6 +129,15 @@ class AuthenticationCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
+        """
+        Listen to private messages and authenticate users.
+        Checks if:
+            - Message is private from user to bot, if not, ignore
+            - User is a member of the server, if not, send information about Python Brasil
+            - User is already authenticated, if yes, send link to welcome channel
+            - Email is present in message, if not, send information about missing email
+            - User is authorized, if yes, authenticate and send link to welcome channel
+        """
         if not self._is_private_message(message):
             return
 
