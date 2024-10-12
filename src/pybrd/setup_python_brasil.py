@@ -14,7 +14,7 @@ async def setup(bot: Bot):
     logger.info("Getting Discord server")
     guild = await bot.fetch_guild(config.DISCORD_SERVER_ID)
     roles = await guild.fetch_roles()
-    templates = Templates("src/pybr2023/templates")
+    templates = Templates("src/pybr2024/templates")
 
     logger.info("Setup Authentication Provider")
     attendee_role = utils.get(roles, name=config.AUTH_ATTENDEE_ROLE)
